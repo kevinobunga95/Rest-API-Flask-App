@@ -1,0 +1,9 @@
+flask
+flask-smorest
+sqlalchemy
+flask-sqlalchemy
+marshmallow
+passlib
+flask-jwt-extended
+psycopg2-binary
+psycopg2
