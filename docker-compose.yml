@@ -5,14 +5,19 @@ services:
       - "5000:5000"
     volumes:
       - .:/app
+    environment:
+      - DATABASE_URL=postgresql://postgres:Hawii23@postgres:5433/User
+    depends_on:
+      - db
 
   db:
     image: postgres
     ports:
       - "5433:5432"
     environment:
-      - POSTGRES_PASSWORD=kevin
-      - POSTGRES_DB=myapp
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Hawii23
+      - POSTGRES_DB=User
     volumes:
       - postgres_data:/var/lib/postgresql/data
 volumes:
