@@ -6,10 +6,12 @@ from resources.company import blp as CompanyBlueprint
 from resources.User import blp as UserBlueprint
 from db import db
 from blocklist import BLOCKLIST
-
+from flask_migrate import Migrate
+from dotenv import load_dotenv
 
 def create_app():
     app = Flask(__name__)
+    load_dotenv()
     app.config["PROPAGATE_EXCEPTIONS"] = True
     app.config["API_TITLE"] = "User REST API"
     app.config["API_VERSION"] = "v1"
@@ -19,11 +21,15 @@ def create_app():
     app.config[
         "OPENAPI_SWAGGER_UI_URL"
     ] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///user.db"
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+    app.config["ENV"] = os.getenv("FLASK_ENV")
+    app.config["DEBUG"] = os.getenv("FLASK_DEBUG") == "1"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
     api = Api(app)
+
+    migrate = Migrate(app, db)
 
     app.config["JWT_SECRET_KEY"] = "Kevion"
 

@@ -7,3 +7,6 @@ passlib
 flask-jwt-extended
 psycopg2-binary
 psycopg2
+flask-migrate
+gunicorn
+python-dotenv
